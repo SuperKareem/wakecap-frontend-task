@@ -1,0 +1,19 @@
+{
+  "presets": ["@babel/preset-typescript"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "components": "./src/components",
+          "pages": "./src/pages",
+          "utils": "./src/utils",
+          "app": "./src/app"
+        },
+        "root": ["./src"],
+        "extensions": [".ts", ".tsx"]
+      }
+    ],
+    "@babel/plugin-transform-runtime"
+  ]
+}
