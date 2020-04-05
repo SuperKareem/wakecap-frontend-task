@@ -5,35 +5,11 @@
  */
 import React from "react";
 import Checkbox from "components/Checkbox";
-import Button, { ButtonType } from "components/Button";
-import styled from "styled-components";
+import Button from "components/Button";
+import { TodoWrapper } from "./partials";
+import { TodoItemProps } from "./interfaces";
 
-type Props = {
-  id?: number;
-  title: string;
-  completed?: boolean;
-  onToggle: () => void;
-  onDelete?: () => void;
-  buttonType?: ButtonType;
-  buttonLabel?: string;
-  editable?: boolean;
-  onInputChanged?: (newValue: string) => void;
-  onCreate?: () => void;
-};
-
-const TodoWrapper = styled.div`
-  width: 800px;
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-  min-height: 50px;
-  margin-bottom: 5px;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #d1d1d1;
-`;
-
-const TodoItem: React.FC<Props> = ({
+const TodoItem: React.FC<TodoItemProps> = ({
   title,
   completed,
   onToggle,

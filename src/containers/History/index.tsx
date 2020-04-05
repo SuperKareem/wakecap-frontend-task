@@ -7,7 +7,7 @@ import React from "react";
 import { Context } from "app/store";
 import HistoryItem from "components/HistoryItem";
 
-const History: React.FC = (): JSX.Element[] | null | JSX.Element => {
+const History: React.FC = (): JSX.Element => {
   const {
     todos,
     selectedUserId,
@@ -21,18 +21,20 @@ const History: React.FC = (): JSX.Element[] | null | JSX.Element => {
 
   if (selectedUserId) {
     return (
-      todos[selectedUserId] &&
-      todos[selectedUserId].map(
-        ({ completed, changed, date, id }) =>
-          completed &&
-          changed && (
-            <HistoryItem
-              key={id}
-              date={date}
-              label={`${selectedUsername} Changed TODO#${id} to done.`}
-            />
-          )
-      )
+      <>
+        {todos[selectedUserId] &&
+          todos[selectedUserId].map(
+            ({ completed, changed, date, id }) =>
+              completed &&
+              changed && (
+                <HistoryItem
+                  key={id}
+                  date={date}
+                  label={`${selectedUsername} Changed TODO#${id} to done.`}
+                />
+              )
+          )}
+      </>
     );
   }
 

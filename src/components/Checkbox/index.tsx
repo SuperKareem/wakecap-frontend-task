@@ -5,14 +5,7 @@
  */
 import React from "react";
 import { CheckBox, InputField, Wrapper, Label } from "./StyledInput";
-
-type CheckboxProps = {
-  label: string;
-  checked: boolean;
-  editable?: boolean;
-  onChange: () => void;
-  onInputChanged: (newValue: string) => void;
-};
+import { CheckboxProps } from "./interfaces";
 
 const StyledCheckbox: React.FC<CheckboxProps> = ({
   label,

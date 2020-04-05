@@ -3,18 +3,7 @@
  *  Util: `fetchData`.
  *
  */
-type RequestType = "users" | "todos";
-
-type ErrorType = {
-  msg: string;
-  url: string;
-};
-
-type Options<T> = {
-  requestType: RequestType;
-  userId?: number;
-  transformer?: (data: T) => T;
-};
+import { RequestType, ErrorType, Options } from "./interfaces";
 
 const fetchData = async <T>({
   requestType,

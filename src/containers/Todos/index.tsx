@@ -1,13 +1,13 @@
 /*
  *
- * Container: `Todo`.
+ * Container: `Todos`.
  *
  */
 import React from "react";
 import { Context } from "app/store";
 import TodoItem from "components/ToDoItem";
 
-const Todos: React.FC = React.memo(() => {
+const Todos: React.FC = () => {
   const {
     todos,
     loadingTodos,
@@ -66,6 +66,6 @@ const Todos: React.FC = React.memo(() => {
   }
 
   return <div>{renderTodos}</div>;
-});
+};
 
-export default Todos;
+export default React.memo(Todos);
