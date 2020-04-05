@@ -7,7 +7,7 @@ import React from "react";
 import Select from "react-select";
 import styled from "styled-components";
 import Button from "components/Button";
-import { Context } from "app/store";
+import { Context } from "app/Store";
 import { formatDataForReactSelect } from "./helpers";
 import { ReactSelectOption } from "./interfaces";
 import { useHistory } from "react-router-dom";

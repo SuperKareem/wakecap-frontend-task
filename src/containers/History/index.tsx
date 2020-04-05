@@ -4,7 +4,7 @@
  *
  */
 import React from "react";
-import { Context } from "app/store";
+import { Context } from "app/Store";
 import HistoryItem from "components/HistoryItem";
 
 const History: React.FC = (): JSX.Element => {
