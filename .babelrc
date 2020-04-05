@@ -5,10 +5,11 @@
       "module-resolver",
       {
         "alias": {
+          "app": "./src/app",
           "components": "./src/components",
+          "containers": "./src/containers",
           "pages": "./src/pages",
-          "utils": "./src/utils",
-          "app": "./src/app"
+          "utils": "./src/utils"
         },
         "root": ["./src"],
         "extensions": [".ts", ".tsx"]

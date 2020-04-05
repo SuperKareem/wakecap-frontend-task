@@ -3,24 +3,38 @@
  *  Util: `fetchData`.
  *
  */
-
 type RequestType = "users" | "todos";
+
 type ErrorType = {
   msg: string;
   url: string;
 };
 
-const fetchData = async (
-  requestType: RequestType
-): Promise<[[], ErrorType]> => {
-  const url = `https://jsonplaceholder.typicode.com/${requestType}`;
+type Options<T> = {
+  requestType: RequestType;
+  userId?: number;
+  transformer?: (data: T) => T;
+};
+
+const fetchData = async <T>({
+  requestType,
+  userId,
+  transformer,
+}: Options<T>): Promise<[T, ErrorType]> => {
+  let url = `https://jsonplaceholder.typicode.com/${requestType}`;
+
+  if (userId) {
+    url = `${url}?userId=${userId}`;
+  }
+
   let error: ErrorType;
-  let data: [];
+  let data: T;
 
   try {
     const response = await fetch(url);
     if (response.ok) {
-      data = await response.json();
+      const resData = await response.json();
+      data = transformer ? transformer(resData) : resData;
     } else {
       error = { url, msg: `${response.status} ${response.statusText}` };
     }

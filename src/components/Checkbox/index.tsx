@@ -4,35 +4,47 @@
  *
  */
 import React from "react";
-import styled from "styled-components";
-import StyledInput from "./StyledInput";
+import { CheckBox, InputField, Wrapper, Label } from "./StyledInput";
 
-interface CheckboxProps {
+type CheckboxProps = {
   label: string;
   checked: boolean;
+  editable?: boolean;
   onChange: () => void;
-}
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const Label = styled.span`
-  margin: 8px 20px;
-`;
+  onInputChanged: (newValue: string) => void;
+};
 
 const StyledCheckbox: React.FC<CheckboxProps> = ({
   label,
   checked,
   onChange,
+  onInputChanged,
+  editable,
 }: CheckboxProps) => {
+  const handleChange = React.useCallback(
+    ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+      if (onInputChanged) {
+        onInputChanged(value);
+      }
+    },
+    [onInputChanged]
+  );
+
   return (
     <Wrapper>
-      <StyledInput type="checkbox" checked={checked} onChange={onChange} />
-      <Label>{label}</Label>
+      <CheckBox type="checkbox" checked={checked} onChange={onChange} />
+
+      {editable ? (
+        <InputField value={label} onChange={handleChange} />
+      ) : (
+        <Label>{label}</Label>
+      )}
     </Wrapper>
   );
+};
+
+StyledCheckbox.defaultProps = {
+  editable: false,
 };
 
 export default StyledCheckbox;

@@ -6,7 +6,7 @@
       "~/*": ["./components/*"]
     },
     // No module system, concatenated file
-    "module": "none",
+    "module": "esnext",
     // Set React as the JSX factory
     "jsx": "react",
     // Resolve modules using Node-resolution algorithm
@@ -14,7 +14,7 @@
     // Target ES6 for more modern browsers
     "target": "es6",
     // Include typings from built-in lib declarations
-    "lib": ["es2015", "dom", "dom.iterable"],
+    "lib": ["es2015", "es2017", "dom", "dom.iterable"],
     // Include module source maps for debugging
     "sourceMap": true,
     "esModuleInterop": true,

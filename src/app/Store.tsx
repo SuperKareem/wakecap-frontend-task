@@ -1,85 +1,55 @@
 /*
  *
- * Component: `Store`.
+ * Store: `todos`.
  *
  */
-import React, { useReducer, Dispatch } from "react";
-import { IUser, IToDo } from "./interfaces";
-import { UserDataActions } from "./Actions";
-import fetchData from "utils/fetchData";
+import * as React from "react";
+import { IState } from "./interfaces";
+import {
+  usersReducer,
+  initialState as usersInitialState,
+} from "./reducers/users";
+import {
+  todosReducer,
+  initialState as todosInitialState,
+} from "./reducers/todos";
+import { loadUserData } from "./reducers/users/Actions";
+import {
+  loadUserTodos,
+  toggleTodo,
+  deleteTodo,
+  createTodo,
+} from "./reducers/todos/Actions";
 
-interface IState {
-  users: IUser[];
-  todos: IToDo[];
-  error?: string;
-  loadUserData?: () => Promise<void>;
-}
+export const Context = React.createContext<IState>({
+  ...usersInitialState,
+  ...todosInitialState,
+});
 
-const initialState: IState = {
-  users: [],
-  todos: [],
-};
-
-interface StoreProps {
-  children: React.ReactNode;
-}
-
-export const StoreContext = React.createContext<IState>(initialState);
-
-const reducer = (state: IState = initialState, action: UserDataActions) => {
-  switch (action.type) {
-    case "LOAD_USER_DATA_SUCCESS":
-      return { ...state, users: action.data };
-    case "LOAD_USER_DATA_FAILED":
-      return { ...state, error: action.error };
-
-    default:
-      return state;
-  }
-};
-
-const loadUserData = (dispatch: Dispatch<UserDataActions>) => async (): Promise<
-  void
-> => {
-  const [users, err] = await fetchData("users");
-
-  if (err) {
-    dispatch({
-      type: "LOAD_USER_DATA_FAILED",
-      error: `error at url: ${err.url},  msg: ${err.msg}`,
-    });
-
-    return;
-  }
-
-  if (users.length > 0) {
-    const extractedData = users.map(
-      (user: IUser): IUser => ({
-        id: user.id,
-        username: user.username,
-      })
-    );
-
-    dispatch({
-      type: "LOAD_USER_DATA_SUCCESS",
-      data: extractedData,
-    });
-  }
-};
-
-const StoreProvider = ({ children }: StoreProps) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export const Provider: React.FC = ({ children }) => {
+  const [usersState, usersDispatch] = React.useReducer(
+    usersReducer,
+    usersInitialState
+  );
+  const [todoState, todoDispatch] = React.useReducer(
+    todosReducer,
+    todosInitialState
+  );
 
   return (
-    <StoreContext.Provider
+    <Context.Provider
+      // @ts-ignore
       value={{
-        ...state,
-        loadUserData: loadUserData(dispatch),
+        ...usersState,
+        ...todoState,
+        loadUserData: loadUserData(usersDispatch),
+        loadUserTodos: loadUserTodos(todoDispatch),
+        toggleTodo: toggleTodo(todoDispatch),
+        deleteTodo: deleteTodo(todoDispatch),
+        createTodo: createTodo(todoDispatch),
       }}
     >
       {children}
-    </StoreContext.Provider>
+    </Context.Provider>
   );
 };
-
-export default StoreProvider;

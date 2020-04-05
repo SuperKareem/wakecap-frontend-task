@@ -1,11 +1,4 @@
-export interface IUser {
-  id: number;
-  username: string;
-}
+import { IUsersState } from "./reducers/users/interfaces";
+import { ITodosState } from "./reducers/todos/interfaces";
 
-export interface IToDo {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-}
+export type IState = ITodosState & IUsersState;
