@@ -18,4 +18,4 @@ npm install && npm start
 
 * [Parcel](https://parceljs.org/getting_started.html) - Web application bundler
 * [Styled components](https://styled-components.com/docs) - Allows you to write actual CSS code to style your components.
-* [react-select](https://react-select.com/home) - Styled select input with placeholder.
+* [React select](https://react-select.com/home) - Styled select input with placeholder.
