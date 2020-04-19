@@ -38,7 +38,6 @@ export const Provider: React.FC = ({ children }) => {
 
   return (
     <Context.Provider
-      // @ts-ignore
       value={{
         ...usersState,
         ...todoState,
