@@ -1,4 +1,4 @@
-# wakecap-frontend-task
+# frontend-task
 ### Todo App.
 
 ## Getting Started
